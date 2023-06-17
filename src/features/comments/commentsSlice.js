@@ -1,5 +1,6 @@
 import {COMMENTS} from '../../app/shared/COMMENTS';
 import { createSlice } from '@reduxjs/toolkit';
+import CommentsList from './CommentsList';
 
 const initialState = {
     commentsArray : COMMENTS
@@ -7,8 +8,22 @@ const initialState = {
 
 const commentsSlice = createSlice({
     name: 'comments',
-    initialState
+    initialState,
+    reducers:{
+        addComment : (state, action) =>{
+            console.log('addComment action.payload', action.payload);
+            console.log('addComment state.commentsArray', state.commentsArray);
+
+            const newComment= {
+                id: state.commentsArray.length +1,
+                ...action.payload
+            }
+            state.commentsArray.push(newComment);
+        }
+    }
 })
+
+export const {addComment} = commentsSlice.actions;
 
 export const commentsReducer = commentsSlice.reducer
 
